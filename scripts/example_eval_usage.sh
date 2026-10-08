@@ -2,8 +2,8 @@
 # Example usage script for quick evaluation
 
 # Set your paths here
-EXP_DIR="/media/Pluto/richkung/My3DIS/outputs/experiments/test_1105_ssam4_filter300_fill500_fix"
-DATASET_ROOT="/media/public_dataset2/multiscan"
+EXP_DIR="./outputs/experiments/test_1105_ssam4_filter300_fill500_fix"
+DATASET_ROOT="data/multiscan"
 GT_PATH="/path/to/multiscan_annotations_search3d/ov_part_annotations"
 OUTPUT_DIR="/tmp/eval_results"
 

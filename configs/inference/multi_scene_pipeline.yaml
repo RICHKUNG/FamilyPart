@@ -9,10 +9,10 @@
 # ============================================================================
 experiment:
   # Path to experiment root directory (contains multiple scene_XXX subdirectories)
-  exp_root: /media/Pluto/richkung/My3DIS/outputs/experiments/test_1108_ssam4_filter500_fill500_propinf
+  exp_root: ./outputs/experiments/test_1108_ssam4_filter500_fill500_propinf
 
   # MultiScan dataset root
-  dataset_root: /media/public_dataset2/multiscan
+  dataset_root: data/multiscan
 
   # Scene selection (multiple options):
   # Option 1: Process all scenes
@@ -126,10 +126,10 @@ inference:
 # ============================================================================
 evaluation:
   enabled: true
-  gt_path: /media/Pluto/richkung/My3DIS/data/search3d_gt/multiscan_data_search3d/multiscan_annotations_search3d/ov_part_annotations
-  gt_ply_path: /media/Pluto/richkung/My3DIS/data/search3d_gt/multiscan_data_search3d/multiscan_test_plys_only
-  query_file: /media/Pluto/richkung/My3DIS/eval/search3d/eval_semantic_instance_parts_OV.py
-  dataset_root: /media/public_dataset2/multiscan
+  gt_path: ./data/search3d_gt/multiscan_data_search3d/multiscan_annotations_search3d/ov_part_annotations
+  gt_ply_path: ./data/search3d_gt/multiscan_data_search3d/multiscan_test_plys_only
+  query_file: ./eval/search3d/eval_semantic_instance_parts_OV.py
+  dataset_root: data/multiscan
   scenes: null  # Inherit from experiment.scenes
   num_workers: 4
   save_per_scene_metrics: true

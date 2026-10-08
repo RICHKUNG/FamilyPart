@@ -19,7 +19,7 @@ All configuration values were correctly loaded and displayed:
 PIPELINE CONFIGURATION
 ================================================================================
 Experiment dir:   .../test_1108_ssam4_filter500_fill500_propinf/scene_00005_00
-Scene path:       /media/public_dataset2/multiscan/scene_00005_00
+Scene path:       data/multiscan/scene_00005_00
 Aggregation out:  .../scene_00005_00/aggregation_output
 Inference out:    .../scene_00005_00/inference_output
 Levels:           [2, 4, 6]
@@ -67,8 +67,8 @@ Stages enabled:
 ```
 Initialized AggregationPipeline
   Experiment: .../scene_00005_00
-  Scene: /media/public_dataset2/multiscan/scene_00005_00
-  PLY: /media/public_dataset2/multiscan/scene_00005_00/scene_00005_00.ply
+  Scene: data/multiscan/scene_00005_00
+  PLY: data/multiscan/scene_00005_00/scene_00005_00.ply
   IoU threshold: 0.8
   Area fraction: 0.002
   Pooling mode: voting              ← ✅ CORRECT (passed to pipeline)
@@ -137,7 +137,7 @@ As configured (`evaluation.enabled: false`)
 
 **Original**:
 ```yaml
-exp_dir: /media/Pluto/richkung/My3DIS/outputs/experiments/test_1108_ssam4_filter500_fill500_propinf
+exp_dir: ./outputs/experiments/test_1108_ssam4_filter500_fill500_propinf
 ```
 
 This is a multi-scene experiment with structure:
@@ -154,7 +154,7 @@ test_1108_ssam4_filter500_fill500_propinf/
 
 **Fixed**:
 ```yaml
-exp_dir: /media/Pluto/richkung/My3DIS/outputs/experiments/test_1108_ssam4_filter500_fill500_propinf/scene_00005_00
+exp_dir: ./outputs/experiments/test_1108_ssam4_filter500_fill500_propinf/scene_00005_00
 ```
 
 **Resolution**: Updated config to point to scene-specific subdirectory.

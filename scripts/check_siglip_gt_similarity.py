@@ -8,7 +8,7 @@ compares them with the SigLIP text embeddings produced from the GT query text.
 
 Usage example:
     PYTHONPATH=src python scripts/check_siglip_gt_similarity.py \
-        --scene-path /media/public_dataset2/multiscan/scene_00005_00 \
+        --scene-path data/multiscan/scene_00005_00 \
         --annotation-file data/search3d_gt/.../ov_part_annotations/scene_00005_00_obj_part_inst.txt
 """
 

@@ -57,7 +57,7 @@
 ```bash
 PYTHONPATH=src conda run -n SAM2 python scripts/batch_eval_experiment.py \
     --exp-root /path/to/experiment/root \
-    --dataset-root /media/public_dataset2/multiscan \
+    --dataset-root data/multiscan \
     --gt-path /path/to/search3d_gt/ov_part_annotations \
     --scenes scene_00005_00
 ```
@@ -84,7 +84,7 @@ experiment/root/
 ```bash
 PYTHONPATH=src conda run -n SAM2 python scripts/batch_eval_experiment.py \
     --exp-root /path/to/experiment/root \
-    --dataset-root /media/public_dataset2/multiscan \
+    --dataset-root data/multiscan \
     --gt-path /path/to/search3d_gt/ov_part_annotations \
     --no-extract-features
 ```
@@ -98,7 +98,7 @@ PYTHONPATH=src conda run -n SAM2 python scripts/batch_eval_experiment.py \
 ```bash
 PYTHONPATH=src conda run -n SAM2 python scripts/batch_eval_experiment.py \
     --exp-root /path/to/experiment/root \
-    --dataset-root /media/public_dataset2/multiscan \
+    --dataset-root data/multiscan \
     --gt-path /path/to/search3d_gt/ov_part_annotations \
     --scenes scene_00005_00 scene_00005_01 scene_00006_00
 ```
@@ -108,7 +108,7 @@ PYTHONPATH=src conda run -n SAM2 python scripts/batch_eval_experiment.py \
 ```bash
 PYTHONPATH=src conda run -n SAM2 python scripts/batch_eval_experiment.py \
     --exp-root /path/to/experiment/root \
-    --dataset-root /media/public_dataset2/multiscan \
+    --dataset-root data/multiscan \
     --gt-path /path/to/search3d_gt/ov_part_annotations \
     --inference-config configs/inference/hierarchical.yaml
 ```
@@ -124,7 +124,7 @@ PYTHONPATH=src conda run -n SAM2 python scripts/batch_eval_experiment.py \
 ```bash
 PYTHONPATH=src conda run -n SAM2 python scripts/batch_eval_experiment.py \
     --exp-root outputs/experiments/v2_135_ssam2_filter500_fill3k_prop30_iou06_ds03 \
-    --dataset-root /media/public_dataset2/multiscan \
+    --dataset-root data/multiscan \
     --gt-path data/search3d_gt/multiscan_annotations_search3d/ov_part_annotations \
     --inference-config configs/inference/quick_eval.yaml \
     --levels 2 4 6 \
@@ -142,7 +142,7 @@ PYTHONPATH=src conda run -n SAM2 python scripts/batch_eval_experiment.py \
 | 參數 | 說明 | 範例 |
 |-----|------|-----|
 | `--exp-root` | 實驗根目錄（包含多個 scene_XX 子目錄） | `/path/to/outputs/experiments/exp_v2` |
-| `--dataset-root` | MultiScan 數據集根目錄 | `/media/public_dataset2/multiscan` |
+| `--dataset-root` | MultiScan 數據集根目錄 | `data/multiscan` |
 | `--gt-path` | Search3D ground truth 標註路徑 | `/path/to/ov_part_annotations` |
 
 ### 可選參數
@@ -382,7 +382,7 @@ python scripts/batch_eval_experiment.py \
 
 SCENES=(scene_00005_00 scene_00005_01 scene_00006_00 scene_00006_01)
 EXP_ROOT="/path/to/experiment/root"
-DATASET_ROOT="/media/public_dataset2/multiscan"
+DATASET_ROOT="data/multiscan"
 GT_PATH="/path/to/ov_part_annotations"
 
 # 並行處理（每次2個場景）
@@ -471,7 +471,7 @@ ls /path/to/experiment/scene_XXX/
 ```bash
 PYTHONPATH=src conda run -n SAM2 python scripts/batch_eval_experiment.py \
     --exp-root outputs/experiments/v2_135_ssam2_filter500_fill3k_prop30_iou06_ds03 \
-    --dataset-root /media/public_dataset2/multiscan \
+    --dataset-root data/multiscan \
     --gt-path data/search3d_gt/multiscan_annotations_search3d/ov_part_annotations \
     --scenes scene_00005_00 \
     --no-extract-features
@@ -493,7 +493,7 @@ scene_00005_00/
 ```bash
 PYTHONPATH=src conda run -n SAM2 python scripts/batch_eval_experiment.py \
     --exp-root outputs/experiments/v2_135_ssam2_filter500_fill3k_prop30_iou06_ds03 \
-    --dataset-root /media/public_dataset2/multiscan \
+    --dataset-root data/multiscan \
     --gt-path data/search3d_gt/multiscan_annotations_search3d/ov_part_annotations \
     --scenes scene_00005_00
 ```
@@ -531,7 +531,7 @@ scene_00005_00 Results:
 ```bash
 PYTHONPATH=src conda run -n SAM2 python scripts/batch_eval_experiment.py \
     --exp-root outputs/experiments/v2_135_ssam2_filter500_fill3k_prop30_iou06_ds03 \
-    --dataset-root /media/public_dataset2/multiscan \
+    --dataset-root data/multiscan \
     --gt-path data/search3d_gt/multiscan_annotations_search3d/ov_part_annotations \
     --scenes scene_00005_00 scene_00005_01 scene_00006_00
 ```

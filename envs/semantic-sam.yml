@@ -1,0 +1,32 @@
+# Environment for Stage 1 (Semantic-SAM candidate generation).
+# Env name matches the default used by run_experiment.sh (--semantic-env).
+#
+# NOTE: reconstructed from the imports in this repo and the versions listed in
+# README.md. The exact package versions used for the reported experiments were
+# not recorded, so treat this as a starting point.
+#
+#   conda env create -f envs/semantic-sam.yml
+#   conda activate Semantic-SAM
+#   # Detectron2 0.6 + Semantic-SAM are installed from source:
+#   pip install 'git+https://github.com/facebookresearch/detectron2.git@v0.6'
+#   git clone https://github.com/UX-Decoder/Semantic-SAM third_party/Semantic-SAM
+#   pip install -r third_party/Semantic-SAM/requirements.txt
+#   # checkpoint: third_party/Semantic-SAM/ckpts/swinl_only_sam_many2many.pth
+name: Semantic-SAM
+channels:
+  - pytorch
+  - nvidia
+  - conda-forge
+dependencies:
+  - python=3.8
+  - pytorch=1.13
+  - torchvision=0.14
+  - pytorch-cuda=11.7
+  - pip
+  - pip:
+      - numpy<2
+      - pillow
+      - opencv-python
+      - pyyaml
+      - tqdm
+      - psutil

@@ -17,12 +17,12 @@
 ### 3. 保存位置
 將下載的資料夾解壓到：
 ```
-/media/Pluto/richkung/My3DIS/data/search3d_gt/
+./data/search3d_gt/
 ```
 
 ### 4. 預期目錄結構
 ```
-/media/Pluto/richkung/My3DIS/data/search3d_gt/
+./data/search3d_gt/
 └── multiscan_data_search3d/
     ├── multiscan_annotations_search3d/
     │   ├── obj_annotations/
@@ -49,7 +49,7 @@ python scripts/verify_gt_setup.py
 
 評估時使用的路徑：
 ```bash
-GT_PATH="/media/Pluto/richkung/My3DIS/data/search3d_gt/multiscan_data_search3d/multiscan_annotations_search3d/ov_part_annotations"
+GT_PATH="./data/search3d_gt/multiscan_data_search3d/multiscan_annotations_search3d/ov_part_annotations"
 ```
 
 ## 使用示例
@@ -57,7 +57,7 @@ GT_PATH="/media/Pluto/richkung/My3DIS/data/search3d_gt/multiscan_data_search3d/m
 ```bash
 conda run -n 3Dsiglip python scripts/quick_eval_experiment.py \
     --exp-dir outputs/experiments/test_1105_ssam4_filter300_fill500_fix/scene_00005_00 \
-    --dataset-root /media/public_dataset2/multiscan \
+    --dataset-root data/multiscan \
     --gt-path ${GT_PATH} \
     --output-dir eval_results
 ```

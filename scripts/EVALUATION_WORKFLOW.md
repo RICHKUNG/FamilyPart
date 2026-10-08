@@ -14,7 +14,7 @@
 
 ```bash
 # Step 1: 打開 Jupyter Notebook
-cd /media/Pluto/richkung/My3DIS/3DprojToSiglip
+cd ./3DprojToSiglip
 jupyter notebook pipeline.ipynb
 
 # Step 2: 修改路徑配置（cell 2）
@@ -22,21 +22,21 @@ path_2_masklets_l2 = "/path/to/your/experiment/scene_XXX/level_2/video_segments_
 path_2_masklets_l4 = "/path/to/your/experiment/scene_XXX/level_4/video_segments_L04.npz"
 path_2_masklets_l6 = "/path/to/your/experiment/scene_XXX/level_6/video_segments_L06.npz"
 path_2_relations = "/path/to/your/experiment/scene_XXX/relations/family_tree.json"
-path_2_scene = "/media/public_dataset2/multiscan/scene_XXX"
-path_2_ply = "/media/public_dataset2/multiscan/scene_XXX/scene_XXX_converted.ply"
+path_2_scene = "data/multiscan/scene_XXX"
+path_2_ply = "data/multiscan/scene_XXX/scene_XXX_converted.ply"
 
 # Step 3: 執行所有 cells（Kernel → Restart & Run All）
 
 # Step 4: 檢查輸出
-ls -lh /media/Pluto/richkung/My3DIS/3DprojToSiglip/proposal_data_level*.npz
+ls -lh ./3DprojToSiglip/proposal_data_level*.npz
 
 # Step 5: 運行評估
 python3 scripts/eval_from_npz.py \
-    --npz-l2 /media/Pluto/richkung/My3DIS/3DprojToSiglip/proposal_data_level2.npz \
-    --npz-l4 /media/Pluto/richkung/My3DIS/3DprojToSiglip/proposal_data_level4.npz \
-    --npz-l6 /media/Pluto/richkung/My3DIS/3DprojToSiglip/proposal_data_level6.npz \
-    --family-tree /media/Pluto/richkung/My3DIS/3DprojToSiglip/Proposal_relation.json \
-    --gt-path /media/Pluto/richkung/My3DIS/data/search3d_gt/multiscan_data_search3d/multiscan_annotations_search3d/ov_part_annotations \
+    --npz-l2 ./3DprojToSiglip/proposal_data_level2.npz \
+    --npz-l4 ./3DprojToSiglip/proposal_data_level4.npz \
+    --npz-l6 ./3DprojToSiglip/proposal_data_level6.npz \
+    --family-tree ./3DprojToSiglip/Proposal_relation.json \
+    --gt-path ./data/search3d_gt/multiscan_data_search3d/multiscan_annotations_search3d/ov_part_annotations \
     --scene-name scene_00005_00 \
     --output-dir /tmp/eval_results
 ```
@@ -78,7 +78,7 @@ for scene in "${SCENES[@]}"; do
         --npz-l4 "${NPZ_DIR}/proposal_data_level4.npz" \
         --npz-l6 "${NPZ_DIR}/proposal_data_level6.npz" \
         --family-tree "${NPZ_DIR}/Proposal_relation.json" \
-        --gt-path /media/Pluto/richkung/My3DIS/data/search3d_gt/multiscan_data_search3d/multiscan_annotations_search3d/ov_part_annotations \
+        --gt-path ./data/search3d_gt/multiscan_data_search3d/multiscan_annotations_search3d/ov_part_annotations \
         --scene-name "${scene}" \
         --output-dir "/tmp/eval_results"
 done
@@ -269,7 +269,7 @@ inference = InferencePipeline(
 ## 文件路徑參考
 
 ```
-/media/Pluto/richkung/My3DIS/
+./
 ├── 3DprojToSiglip/
 │   ├── pipeline.ipynb              # 核心邏輯（已驗證可行）
 │   ├── utils_new/
@@ -296,7 +296,7 @@ inference = InferencePipeline(
             └── ov_part_annotations/    # Ground truth
 
 常用場景數據：
-/media/public_dataset2/multiscan/
+data/multiscan/
 ├── scene_00005_00/
 │   ├── scene_00005_00_converted.ply    # 3D 點雲
 │   └── outputs/

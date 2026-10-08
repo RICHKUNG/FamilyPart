@@ -107,7 +107,7 @@ if __name__ == '__main__':
         run_dir = sys.argv[1]
     else:
         # Use the most recent test run
-        run_dir = "/media/Pluto/richkung/My3DIS/outputs/experiments/test_v7_246_ssam4_filter10_fill50_propinf_1114/scene_00005_00"
+        run_dir = "./outputs/experiments/test_v7_246_ssam4_filter10_fill50_propinf_1114/scene_00005_00"
 
     success = verify_run(run_dir)
 

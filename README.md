@@ -237,12 +237,35 @@ Based on current findings, we identify promising directions for improvement:
 ## Getting Started
 
 ### Prerequisites
-- Two conda environments:
-  - **Semantic-SAM**: Detectron2 0.6 + PyTorch 1.13
-  - **SAM2**: PyTorch 2.x
+- Two conda environments (see [`envs/`](envs/) for setup steps):
+  - **Semantic-SAM**: Detectron2 0.6 + PyTorch 1.13 ([`envs/semantic-sam.yml`](envs/semantic-sam.yml))
+  - **SAM2**: PyTorch 2.x ([`envs/sam2.yml`](envs/sam2.yml))
 - MultiScan dataset (or custom RGB-D sequences with camera poses)
 - **Semantic-SAM checkpoint**: `swinl_only_sam_many2many`
 - **SAM2 checkpoint**: `sam2.1_hiera_large`
+
+### Directory Layout
+
+All paths in `configs/` and `scripts/` are relative to the repository root, so run commands from there. The expected layout is:
+
+```
+FamilyPart/
+├── data/
+│   ├── multiscan/          # MultiScan scenes (a symlink is fine)
+│   └── search3d_gt/        # Search3D ground truth (scripts/setup_search3d_gt.sh)
+├── third_party/
+│   ├── Semantic-SAM/       # with ckpts/swinl_only_sam_many2many.pth
+│   └── Grounded-SAM-2/     # with checkpoints/sam2.1_hiera_large.pt
+├── models/                 # optional local copy of siglip-so400m-patch14-384
+└── outputs/                # experiment outputs (created automatically)
+```
+
+Model locations can also be overridden with environment variables: `MY3DIS_SEMANTIC_SAM_ROOT`, `MY3DIS_SEMANTIC_SAM_CKPT`, `MY3DIS_SAM2_ROOT`, `MY3DIS_SAM2_CFG`, `MY3DIS_SAM2_CKPT`, `MY3DIS_DATA_PATH`, `MY3DIS_OUTPUT_ROOT` (see `src/my3dis/pipeline_defaults.py`).
+
+### Known Gaps
+
+- Stage 3 (`src/my3dis/aggregation/aggregation_pipeline.py`) and several evaluation scripts import helper modules from a `3DprojToSiglip/` directory (`utils_load`, `utils_new`) that is not yet included in this repository.
+- Evaluation uses the official Search3D script (`eval_semantic_instance_parts_OV.py`), which must be obtained from the Search3D release.
 
 ### Quick Start
 
@@ -429,6 +452,12 @@ FamilyPart builds upon:
 
 **Mentors at Vision Science Lab, NTHU**:
 - Yen Hong-Xuan, Ou Yeh, Chen Chia-Min and Wang Yan-Qing 
+
+---
+
+## License
+
+Released under the [MIT License](LICENSE).
 
 ---
 

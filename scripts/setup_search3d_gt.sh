@@ -116,7 +116,7 @@ if [ "$all_found" = true ]; then
     echo "Usage:"
     echo "  python scripts/quick_eval_experiment.py \\"
     echo "    --exp-dir outputs/experiments/YOUR_EXP/scene_XXXXX_XX \\"
-    echo "    --dataset-root /media/public_dataset2/multiscan \\"
+    echo "    --dataset-root data/multiscan \\"
     echo "    --gt-path ${GT_ROOT}/multiscan_annotations_search3d/ov_part_annotations \\"
     echo "    --output-dir eval_results"
 else

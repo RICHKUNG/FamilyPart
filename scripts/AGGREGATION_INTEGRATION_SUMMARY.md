@@ -94,7 +94,7 @@ results = pipeline.run(
 ```bash
 PYTHONPATH=src python -m my3dis.aggregation.aggregation_pipeline \
     --exp-dir outputs/experiments/my_exp/scene_00005_00 \
-    --scene-path /media/public_dataset2/multiscan/scene_00005_00 \
+    --scene-path data/multiscan/scene_00005_00 \
     --output-dir /tmp/3d_proposals \
     --levels 2 4 6 \
     --iou-threshold 0.8 \
@@ -195,7 +195,7 @@ The integrated pipeline requires:
 
 ## Related Documentation
 
-- **Original workflow**: `/media/Pluto/richkung/My3DIS/3DprojToSiglip/pipeline.ipynb`
+- **Original workflow**: `./3DprojToSiglip/pipeline.ipynb`
 - **Evaluation workflow**: `scripts/EVALUATION_WORKFLOW.md`
 - **Quick eval guide**: `scripts/README_QUICK_EVAL.md`
 - **NPZ-based evaluation**: `scripts/eval_from_npz.py`

@@ -9,18 +9,18 @@ Usage:
     # Test on a single scene
     python scripts/benchmark_feature_extraction.py \
         --exp-dir outputs/experiments/SUCCESS/v7_246_ssam4_filter100_fill100_prop30_max3k_m_1/scene_00005_00 \
-        --dataset-root /media/public_dataset2/multiscan
+        --dataset-root data/multiscan
 
     # Compare different batch sizes
     python scripts/benchmark_feature_extraction.py \
         --exp-dir outputs/experiments/SUCCESS/v7_246_ssam4_filter100_fill100_prop30_max3k_m_1/scene_00005_00 \
-        --dataset-root /media/public_dataset2/multiscan \
+        --dataset-root data/multiscan \
         --batch-sizes 8,16,32,64
 
     # Test with cache disabled
     python scripts/benchmark_feature_extraction.py \
         --exp-dir outputs/experiments/SUCCESS/v7_246_ssam4_filter100_fill100_prop30_max3k_m_1/scene_00005_00 \
-        --dataset-root /media/public_dataset2/multiscan \
+        --dataset-root data/multiscan \
         --no-cache
 """
 

@@ -1,7 +1,7 @@
 # Ultra-fast test: Just 2 frames to verify provenance fix
 experiment:
   name: test_quick_prov
-  dataset_root: /media/public_dataset2/multiscan
+  dataset_root: data/multiscan
   scenes:
     - scene_00005_01  # Smaller scene
   parallel_scenes: 1
@@ -13,7 +13,7 @@ experiment:
   tag_in_path: false
   aggregate_output: false
   output_layout: scene_level
-  output_root: /media/Pluto/richkung/My3DIS/outputs/experiments/{name}
+  output_root: ./outputs/experiments/{name}
   frames:
     start: 0
     end: 100  # Just 2 frames
@@ -33,7 +33,7 @@ stages:
     downscale_masks: true
     downscale_ratio: 0.3
     max_masks_per_level: 100  # Limit to speed up
-    sam_ckpt: /media/Pluto/Yenhongxuan/Semantic-SAM/ckpts/swinl_only_sam_many2many.pth
+    sam_ckpt: third_party/Semantic-SAM/ckpts/swinl_only_sam_many2many.pth
   filter:
     enabled: true
     min_area: 100
@@ -46,8 +46,8 @@ stages:
     downscale_masks: true
     downscale_ratio: 0.3
     render_viz: false
-    sam2_cfg: /media/Pluto/Yenhongxuan/Grounded-SAM-2/sam2/configs/sam2.1/sam2.1_hiera_l.yaml
-    sam2_ckpt: /media/Pluto/Yenhongxuan/Grounded-SAM-2/checkpoints/sam2.1_hiera_large.pt
+    sam2_cfg: third_party/Grounded-SAM-2/sam2/configs/sam2.1/sam2.1_hiera_l.yaml
+    sam2_ckpt: third_party/Grounded-SAM-2/checkpoints/sam2.1_hiera_large.pt
     comparison_sampling:
       max_frames: 10
     build_sam2_tree: false

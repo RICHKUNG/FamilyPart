@@ -11,7 +11,7 @@ during inference, making this a true sanity check.
 
 Usage example:
     PYTHONPATH=src python scripts/siglip_gt_sanity_check_with_scaling.py \
-        --scene-path /media/public_dataset2/multiscan/scene_00005_00 \
+        --scene-path data/multiscan/scene_00005_00 \
         --annotation-file data/search3d_gt/multiscan_data_search3d/multiscan_annotations_search3d/ov_part_annotations/scene_00005_00_obj_part_inst.txt
 """
 

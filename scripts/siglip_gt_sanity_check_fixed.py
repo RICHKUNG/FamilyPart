@@ -12,7 +12,7 @@ Expected improvement: 0.03-0.06 → >0.4-0.6 similarity, 60% → >85% rank-1 acc
 
 Usage example:
     PYTHONPATH=src python scripts/siglip_gt_sanity_check_fixed.py \
-        --scene-path /media/public_dataset2/multiscan/scene_00005_00 \
+        --scene-path data/multiscan/scene_00005_00 \
         --annotation-file data/search3d_gt/multiscan_data_search3d/multiscan_annotations_search3d/ov_part_annotations/scene_00005_00_obj_part_inst.txt
 
 Date: 2025-11-16

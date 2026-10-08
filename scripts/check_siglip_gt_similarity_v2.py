@@ -9,7 +9,7 @@ Key improvements:
 
 Usage:
     PYTHONPATH=src python scripts/check_siglip_gt_similarity_v2.py \
-        --scene-path /media/public_dataset2/multiscan/scene_00005_00 \
+        --scene-path data/multiscan/scene_00005_00 \
         --annotation-file data/search3d_gt/.../scene_00005_00_obj_part_inst.txt
 """
 

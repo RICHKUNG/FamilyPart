@@ -17,7 +17,7 @@ echo ""
 
 # Configuration
 CONFIG_FILE="configs/multiscan/test_orphan_fix.yaml"
-OUTPUT_BASE="/media/Pluto/richkung/My3DIS/outputs/experiments/test_orphan_fix_1104"
+OUTPUT_BASE="./outputs/experiments/test_orphan_fix_1104"
 
 echo "Step 1: Running workflow..."
 echo "-------------------------------------------"

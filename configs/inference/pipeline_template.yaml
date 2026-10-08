@@ -11,10 +11,10 @@
 # ============================================================================
 experiment:
   # Path to My3DIS experiment output directory
-  exp_dir: /media/Pluto/richkung/My3DIS/outputs/experiments/YOUR_EXPERIMENT_NAME
+  exp_dir: ./outputs/experiments/YOUR_EXPERIMENT_NAME
 
   # Path to MultiScan scene directory
-  scene_path: /media/public_dataset2/multiscan/YOUR_SCENE_NAME
+  scene_path: data/multiscan/YOUR_SCENE_NAME
 
   # Output directories (null = auto-generate as subdirs of exp_dir)
   aggregation_output_dir: null  # Will use exp_dir/aggregation_output
@@ -119,7 +119,7 @@ evaluation:
   enabled: false
   gt_path: null                # Path to Search3D ground truth
   query_file: null             # Path to query file (null = use default)
-  dataset_root: /media/public_dataset2/multiscan
+  dataset_root: data/multiscan
   scenes: null                 # null = all scenes in experiment
   num_workers: 4
   save_per_scene_metrics: true
