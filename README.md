@@ -260,7 +260,7 @@ FamilyPart/
 └── outputs/                # experiment outputs (created automatically)
 ```
 
-Model locations can also be overridden with environment variables: `MY3DIS_SEMANTIC_SAM_ROOT`, `MY3DIS_SEMANTIC_SAM_CKPT`, `MY3DIS_SAM2_ROOT`, `MY3DIS_SAM2_CFG`, `MY3DIS_SAM2_CKPT`, `MY3DIS_DATA_PATH`, `MY3DIS_OUTPUT_ROOT` (see `src/my3dis/pipeline_defaults.py`).
+Model locations can also be overridden with environment variables: `MY3DIS_SEMANTIC_SAM_ROOT`, `MY3DIS_SEMANTIC_SAM_CKPT`, `MY3DIS_SAM2_ROOT`, `MY3DIS_SAM2_CFG`, `MY3DIS_SAM2_CKPT`, `MY3DIS_DATA_PATH`, `MY3DIS_DATASET_ROOT`, `MY3DIS_OUTPUT_ROOT` (see `src/my3dis/pipeline_defaults.py` and `src/my3dis/workflow/executor.py`). Relative paths are resolved against the directory you launch from, before any stage changes into the Semantic-SAM / SAM2 repos.
 
 ### Known Gaps
 

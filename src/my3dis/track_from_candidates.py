@@ -107,6 +107,16 @@ def run_tracking(
     sam2_cfg = os.fspath(sam2_cfg) if isinstance(sam2_cfg, os.PathLike) else sam2_cfg
     sam2_ckpt = os.fspath(sam2_ckpt) if isinstance(sam2_ckpt, os.PathLike) else sam2_ckpt
 
+    # run_tracking() later chdirs into DEFAULT_SAM2_ROOT, so anchor every
+    # filesystem path to the caller's working directory first. sam2_cfg may also
+    # be a Hydra config name (not a file); only absolutize it if it exists.
+    data_path = os.path.abspath(os.path.expanduser(os.fspath(data_path)))
+    candidates_root = os.path.abspath(os.path.expanduser(os.fspath(candidates_root)))
+    output = os.path.abspath(os.path.expanduser(os.fspath(output)))
+    sam2_ckpt = os.path.abspath(os.path.expanduser(sam2_ckpt))
+    if os.path.isfile(os.path.expanduser(sam2_cfg)):
+        sam2_cfg = os.path.abspath(os.path.expanduser(sam2_cfg))
+
     # Set PyTorch CUDA allocator configuration to reduce OOM issues
     # Use expandable_segments to avoid memory fragmentation
     if 'PYTORCH_CUDA_ALLOC_CONF' not in os.environ:

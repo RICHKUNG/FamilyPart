@@ -98,7 +98,7 @@ class SSAMStageConfig:
         # Validate checkpoint
         sam_ckpt_cfg = stage_cfg.get('sam_ckpt') or experiment_cfg.get('sam_ckpt')
         if sam_ckpt_cfg:
-            sam_ckpt = Path(sam_ckpt_cfg).expanduser()
+            sam_ckpt = Path(sam_ckpt_cfg).expanduser().absolute()
         else:
             # Import default only when needed
             try:
@@ -202,8 +202,8 @@ class SSAMStageConfig:
             tag_in_path = bool(tag_in_path_raw)
 
         return cls(
-            data_path=Path(data_path).expanduser(),
-            output_root=Path(output_root).expanduser(),
+            data_path=Path(data_path).expanduser().absolute(),
+            output_root=Path(output_root).expanduser().absolute(),
             levels=levels,
             frames_start=max(0, start),
             frames_end=end,
@@ -335,7 +335,7 @@ class TrackingStageConfig:
         # Validate SAM2 configuration
         sam2_cfg_raw = stage_cfg.get('sam2_cfg') or experiment_cfg.get('sam2_cfg')
         if sam2_cfg_raw:
-            sam2_cfg = Path(sam2_cfg_raw).expanduser()
+            sam2_cfg = Path(sam2_cfg_raw).expanduser().absolute()
         else:
             try:
                 from ..track_from_candidates import DEFAULT_SAM2_CFG
@@ -352,7 +352,7 @@ class TrackingStageConfig:
         # Validate SAM2 checkpoint
         sam2_ckpt_raw = stage_cfg.get('sam2_ckpt') or experiment_cfg.get('sam2_ckpt')
         if sam2_ckpt_raw:
-            sam2_ckpt = Path(sam2_ckpt_raw).expanduser()
+            sam2_ckpt = Path(sam2_ckpt_raw).expanduser().absolute()
         else:
             try:
                 from ..track_from_candidates import DEFAULT_SAM2_CKPT
@@ -462,9 +462,9 @@ class TrackingStageConfig:
         tree_viz_max_families = int(tree_viz_max_families_raw) if tree_viz_max_families_raw is not None else None
 
         return cls(
-            data_path=Path(data_path).expanduser(),
-            candidates_root=Path(candidates_root).expanduser(),
-            output_root=Path(output_root).expanduser(),
+            data_path=Path(data_path).expanduser().absolute(),
+            candidates_root=Path(candidates_root).expanduser().absolute(),
+            output_root=Path(output_root).expanduser().absolute(),
             levels=levels,
             sam2_cfg=sam2_cfg,
             sam2_ckpt=sam2_ckpt,
@@ -539,7 +539,7 @@ class FilterStageConfig:
         stability = float(stage_cfg.get('stability_threshold', 0.9))
 
         return cls(
-            root=Path(candidates_root).expanduser(),
+            root=Path(candidates_root).expanduser().absolute(),
             levels=levels,
             min_area=min_area,
             stability_threshold=stability,

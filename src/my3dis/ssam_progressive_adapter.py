@@ -231,6 +231,9 @@ def generate_with_progressive(
     Each candidate dict contains: {'frame_idx', 'frame_name', 'bbox'(XYWH), 'area', 'stability_score'(1.0),
     'level', 'segmentation', 'mask_scale_ratio'}.
     """
+    # _semantic_sam_workdir() chdirs into the Semantic-SAM repo; anchor paths first.
+    sam_ckpt_path = os.path.abspath(os.path.expanduser(os.fspath(sam_ckpt_path)))
+    frames_dir = os.path.abspath(os.path.expanduser(os.fspath(frames_dir)))
     with _semantic_sam_workdir():
         semantic_sam = build_semantic_sam(model_type="L", ckpt=sam_ckpt_path)
 
