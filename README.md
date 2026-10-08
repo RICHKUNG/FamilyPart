@@ -264,7 +264,7 @@ Model locations can also be overridden with environment variables: `MY3DIS_SEMAN
 
 ### Known Gaps
 
-- Stage 3 (`src/my3dis/aggregation/aggregation_pipeline.py`) and several evaluation scripts import helper modules from a `3DprojToSiglip/` directory (`utils_load`, `utils_new`) that is not yet included in this repository.
+- Stage 3 (`src/my3dis/aggregation/aggregation_pipeline.py`) and several evaluation scripts import helper modules (`utils_load`, `utils_new`) from `3DprojToSiglip/`, a lab-internal codebase written by a mentor at the Vision Science Lab. It is not included in this repository.
 - Evaluation uses the official Search3D script (`eval_semantic_instance_parts_OV.py`), which must be obtained from the Search3D release.
 
 ### Quick Start
