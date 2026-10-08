@@ -23,7 +23,7 @@ TEST_CONFIG="/tmp/test_orphan_fix.yaml"
 cat > "$TEST_CONFIG" <<EOF
 experiment:
   name: test_orphan_fix
-  dataset_root: /media/public_dataset2/multiscan
+  dataset_root: data/multiscan
   scenes:
     - $SCENE
 

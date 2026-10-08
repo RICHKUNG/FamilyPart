@@ -1,0 +1,37 @@
+# Environment for Stage 2 (SAM2 tracking) and Stages 3-4 (3D aggregation,
+# SigLIP / LAION-CLIP features, retrieval, evaluation).
+# Env name matches the default used by run_experiment.sh (--sam2-env).
+#
+# NOTE: reconstructed from the imports in this repo and the versions listed in
+# README.md. The exact package versions used for the reported experiments were
+# not recorded, so treat this as a starting point.
+#
+#   conda env create -f envs/sam2.yml
+#   conda activate SAM2
+#   # SAM2 is installed from source (this repo expects the Grounded-SAM-2 layout):
+#   git clone https://github.com/IDEA-Research/Grounded-SAM-2 third_party/Grounded-SAM-2
+#   pip install -e third_party/Grounded-SAM-2
+#   # checkpoint: third_party/Grounded-SAM-2/checkpoints/sam2.1_hiera_large.pt
+name: SAM2
+channels:
+  - pytorch
+  - nvidia
+  - conda-forge
+dependencies:
+  - python=3.10
+  - pytorch>=2.3.1
+  - torchvision
+  - pytorch-cuda=12.1
+  - pip
+  - pip:
+      - numpy<2
+      - scipy
+      - pillow
+      - opencv-python
+      - matplotlib
+      - pyyaml
+      - tqdm
+      - psutil
+      - plyfile
+      - OpenEXR
+      - transformers>=4.37   # SigLIP (google/siglip-so400m-patch14-384), LAION-CLIP

@@ -67,8 +67,8 @@ def analyze_scene_gt(gt_file, ply_file):
     }
 
 def main():
-    gt_dir = Path('/media/Pluto/richkung/My3DIS/data/search3d_gt/multiscan_data_search3d/multiscan_annotations_search3d/ov_part_annotations')
-    ply_dir = Path('/media/Pluto/richkung/My3DIS/data/search3d_gt/multiscan_data_search3d/multiscan_test_plys_only')
+    gt_dir = Path('./data/search3d_gt/multiscan_data_search3d/multiscan_annotations_search3d/ov_part_annotations')
+    ply_dir = Path('./data/search3d_gt/multiscan_data_search3d/multiscan_test_plys_only')
 
     scenes = []
 

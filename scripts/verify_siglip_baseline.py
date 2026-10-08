@@ -219,7 +219,7 @@ def main():
     import argparse
     parser = argparse.ArgumentParser(description="Verify SigLIP model baseline functionality")
     parser.add_argument("--scene-path", type=Path, 
-                        default=Path("/media/public_dataset2/multiscan/scene_00005_00"),
+                        default=Path("data/multiscan/scene_00005_00"),
                         help="Path to scene directory")
     parser.add_argument("--model-name", default="google/siglip-so400m-patch14-384",
                         help="SigLIP model name")

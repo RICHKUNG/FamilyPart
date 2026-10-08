@@ -29,7 +29,7 @@
 ###############################################################
 experiment:
   name: v7_246_ssam4_filter100_fill100_prop10_max3k_a_1
-  dataset_root: /media/public_dataset2/multiscan
+  dataset_root: data/multiscan
   scenes: null
   scene_start: scene_00005_00  
   scene_end: scene_00098_02    
@@ -43,7 +43,7 @@ experiment:
   tag_in_path: false
   aggregate_output: false
   output_layout: scene_level
-  output_root: /media/Pluto/richkung/My3DIS/outputs/experiments/{name}
+  output_root: ./outputs/experiments/{name}
   frames:
     step: 50
 
@@ -63,7 +63,7 @@ stages:
     downscale_ratio: 0.3  # Match base.yaml: full resolution
     max_masks_per_level: 3000  # Reduced from 10000 to prevent OOM
     cascade_filtering: true  # Enable cascade filtering
-    sam_ckpt: /media/Pluto/Yenhongxuan/Semantic-SAM/ckpts/swinl_only_sam_many2many.pth
+    sam_ckpt: third_party/Semantic-SAM/ckpts/swinl_only_sam_many2many.pth
   filter:
     enabled: true
     min_area: 100
@@ -76,8 +76,8 @@ stages:
     downscale_masks: true
     downscale_ratio: 0.3  # Match base.yaml: full resolution
     render_viz: true
-    sam2_cfg: /media/Pluto/Yenhongxuan/Grounded-SAM-2/sam2/configs/sam2.1/sam2.1_hiera_l.yaml
-    sam2_ckpt: /media/Pluto/Yenhongxuan/Grounded-SAM-2/checkpoints/sam2.1_hiera_large.pt
+    sam2_cfg: third_party/Grounded-SAM-2/sam2/configs/sam2.1/sam2.1_hiera_l.yaml
+    sam2_ckpt: third_party/Grounded-SAM-2/checkpoints/sam2.1_hiera_large.pt
     comparison_sampling:
       max_frames: 300
     # ========================================================================

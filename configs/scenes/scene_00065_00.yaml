@@ -1,12 +1,12 @@
 experiment:
   name: multiscan_batch
-  dataset_root: /media/public_dataset2/multiscan
+  dataset_root: data/multiscan
   scenes:
   # - scene_00005_01
   # - scene_00030_00
   - scene_00065_00
   # - scene_00075_01
-  output_root: /media/Pluto/richkung/My3DIS/outputs/experiments/{name}
+  output_root: ./outputs/experiments/{name}
   levels:
   - 2
   - 4

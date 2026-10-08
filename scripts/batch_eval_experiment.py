@@ -346,7 +346,7 @@ def evaluate_single_scene(
         try:
             from transformers import AutoModel, AutoProcessor
 
-            local_siglip_dir = "/media/Pluto/richkung/3DprojToSiglip/models/siglip-so400m-patch14-384"
+            local_siglip_dir = "models/siglip-so400m-patch14-384"
             if Path(local_siglip_dir).exists():
                 siglip_processor = AutoProcessor.from_pretrained(local_siglip_dir, local_files_only=True, use_fast=False)
                 siglip_model = AutoModel.from_pretrained(local_siglip_dir, local_files_only=True).to(device).eval()
@@ -577,7 +577,7 @@ def main():
     )
     parser.add_argument(
         '--siglip-model-dir',
-        default='/media/Pluto/richkung/3DprojToSiglip/models/siglip-so400m-patch14-384',
+        default='models/siglip-so400m-patch14-384',
         help='Path to SigLIP model directory'
     )
     parser.add_argument(

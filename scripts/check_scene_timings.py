@@ -12,15 +12,15 @@ from typing import Dict, Iterable, List, Optional, Any
 
 
 # Update this list to change the default experiment directories processed when no arguments are provided.
-DEFAULT_BASES = ["/media/Pluto/richkung/My3DIS/outputs/experiments/v2_135_ssam2_filter2k_fill10k_prop30_iou06_ds03",
-                "/media/Pluto/richkung/My3DIS/outputs/experiments/v2_135_ssam2_filter2k_fill10k_prop50_iou06_ds03",
-                "/media/Pluto/richkung/My3DIS/outputs/experiments/v2_135_ssam2_filter500_fill3k_prop30_iou06_ds03",
-                "/media/Pluto/richkung/My3DIS/outputs/experiments/v2_246_ssam2_filter2k_fill10k_prop10_iou06_ds03",
-                "/media/Pluto/richkung/My3DIS/outputs/experiments/v2_246_ssam2_filter2k_fill10k_prop30_iou05_ds03",
-                "/media/Pluto/richkung/My3DIS/outputs/experiments/v2_246_ssam2_filter2k_fill10k_prop30_iou06_ds03",
-                "/media/Pluto/richkung/My3DIS/outputs/experiments/v2_246_ssam2_filter2k_fill10k_prop50_iou06_ds03",
-                "/media/Pluto/richkung/My3DIS/outputs/experiments/v2_246_ssam2_filter500_fill3k_prop30_iou06_ds03",
-                "/media/Pluto/richkung/My3DIS/outputs/experiments/v2_246_ssam2_filter500_fill3k_prop30_iou07_ds03"]
+DEFAULT_BASES = ["./outputs/experiments/v2_135_ssam2_filter2k_fill10k_prop30_iou06_ds03",
+                "./outputs/experiments/v2_135_ssam2_filter2k_fill10k_prop50_iou06_ds03",
+                "./outputs/experiments/v2_135_ssam2_filter500_fill3k_prop30_iou06_ds03",
+                "./outputs/experiments/v2_246_ssam2_filter2k_fill10k_prop10_iou06_ds03",
+                "./outputs/experiments/v2_246_ssam2_filter2k_fill10k_prop30_iou05_ds03",
+                "./outputs/experiments/v2_246_ssam2_filter2k_fill10k_prop30_iou06_ds03",
+                "./outputs/experiments/v2_246_ssam2_filter2k_fill10k_prop50_iou06_ds03",
+                "./outputs/experiments/v2_246_ssam2_filter500_fill3k_prop30_iou06_ds03",
+                "./outputs/experiments/v2_246_ssam2_filter500_fill3k_prop30_iou07_ds03"]
 
 
 @dataclass

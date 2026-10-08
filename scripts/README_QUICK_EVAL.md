@@ -31,7 +31,7 @@ This checks:
 ```bash
 python scripts/quick_eval_experiment.py \
   --exp-dir outputs/experiments/test_1105_ssam4_filter300_fill500_fix \
-  --dataset-root /media/public_dataset2/multiscan \
+  --dataset-root data/multiscan \
   --gt-path /path/to/multiscan_annotations_search3d/ov_part_annotations \
   --output-dir /tmp/eval_results \
   --config configs/inference/quick_eval.yaml
@@ -44,7 +44,7 @@ python scripts/quick_eval_experiment.py \
 ```bash
 python scripts/batch_eval_experiments.py \
   --exp-root outputs/experiments \
-  --dataset-root /media/public_dataset2/multiscan \
+  --dataset-root data/multiscan \
   --gt-path /path/to/gt \
   --output-dir /tmp/batch_results \
   --num-workers 4

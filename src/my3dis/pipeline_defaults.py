@@ -26,7 +26,7 @@ _PROJECT_ROOT = Path(__file__).resolve().parents[2]
 
 
 # Semantic-SAM assets -----------------------------------------------------
-_DEFAULT_SEMANTIC_SAM_ROOT = Path("/media/Pluto/Yenhongxuan/Semantic-SAM")
+_DEFAULT_SEMANTIC_SAM_ROOT = _PROJECT_ROOT / "third_party" / "Semantic-SAM"
 DEFAULT_SEMANTIC_SAM_ROOT = _path_from_env("MY3DIS_SEMANTIC_SAM_ROOT", _DEFAULT_SEMANTIC_SAM_ROOT)
 DEFAULT_SEMANTIC_SAM_CKPT = _path_from_env(
     "MY3DIS_SEMANTIC_SAM_CKPT",
@@ -34,7 +34,7 @@ DEFAULT_SEMANTIC_SAM_CKPT = _path_from_env(
 )
 
 # SAM2 assets -------------------------------------------------------------
-_DEFAULT_SAM2_ROOT = Path("/media/Pluto/Yenhongxuan/Grounded-SAM-2")
+_DEFAULT_SAM2_ROOT = _PROJECT_ROOT / "third_party" / "Grounded-SAM-2"
 DEFAULT_SAM2_ROOT = _path_from_env("MY3DIS_SAM2_ROOT", _DEFAULT_SAM2_ROOT)
 DEFAULT_SAM2_CFG = _path_from_env(
     "MY3DIS_SAM2_CFG",

@@ -6,7 +6,7 @@ Automatically finds all v2 experiment runs and recovers their parent-child relat
 
 Usage:
     python scripts/batch_recover_v2_relations.py \
-        --experiments-root /media/Pluto/richkung/My3DIS/outputs/experiments
+        --experiments-root ./outputs/experiments
 
 Author: Rich Kung
 Created: 2025-10-21
@@ -112,7 +112,7 @@ def main() -> None:
     parser.add_argument(
         '--experiments-root',
         type=str,
-        default='/media/Pluto/richkung/My3DIS/outputs/experiments',
+        default='./outputs/experiments',
         help='Root directory containing v2_* experiments',
     )
     parser.add_argument(

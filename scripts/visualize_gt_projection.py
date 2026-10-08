@@ -318,7 +318,7 @@ def main():
     logger.info("Preparing WORLD_2_CAM projection...")
     pipeline = prepare_world2cam(
         scene_path=args.scene_path,
-        experiment_root=Path("/media/Pluto/richkung/My3DIS/outputs/gt_projection_analysis"),
+        experiment_root=Path("./outputs/gt_projection_analysis"),
     )
     logger.info(f"Loaded projection for {len(pipeline.world2cam.color_paths)} frames")
 

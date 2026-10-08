@@ -2187,7 +2187,7 @@ Examples:
         logger.info("="*80)
 
         exp_root = Path(config['experiment']['exp_root'])
-        dataset_root = Path(config['experiment'].get('dataset_root', '/media/public_dataset2/multiscan'))
+        dataset_root = Path(config['experiment'].get('dataset_root', 'data/multiscan'))
         scenes_config = config['experiment'].get('scenes', 'all')
 
         logger.info(f"Experiment root: {exp_root}")

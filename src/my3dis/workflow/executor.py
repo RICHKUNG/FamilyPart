@@ -346,7 +346,7 @@ def execute_workflow(
     if scenes_cfg is not None or scene_start_cfg is not None or scene_end_cfg is not None:
         if not dataset_root_raw:
             raise WorkflowConfigError('experiment.dataset_root is required when selecting scenes')
-        dataset_root = Path(dataset_root_raw).expanduser()
+        dataset_root = Path(dataset_root_raw).expanduser().absolute()
         scenes_list = normalize_scene_list(
             scenes_cfg,
             dataset_root,
@@ -354,7 +354,7 @@ def execute_workflow(
             scene_end=scene_end_cfg,
         )
     else:
-        dataset_root = Path(dataset_root_raw).expanduser() if dataset_root_raw else None
+        dataset_root = Path(dataset_root_raw).expanduser().absolute() if dataset_root_raw else None
 
     if scenes_list:
         output_root_base_raw = override_output or _resolve_path_override(
@@ -362,7 +362,7 @@ def execute_workflow(
             experiment_cfg.get('output_root'),
         )
         output_root_base_resolved = expand_output_path_template(output_root_base_raw, experiment_cfg)
-        output_root_base = Path(output_root_base_resolved).expanduser()
+        output_root_base = Path(output_root_base_resolved).expanduser().absolute()
 
         aggregate_output = bool(experiment_cfg.get('aggregate_output'))
         run_timestamp = experiment_cfg.get('run_timestamp')

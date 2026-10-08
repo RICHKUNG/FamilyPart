@@ -118,7 +118,7 @@ def main():
     parser = argparse.ArgumentParser(description='验证 proposal 加载')
     parser.add_argument(
         '--aggregation-dir',
-        default='/media/Pluto/richkung/My3DIS/outputs/experiments/v6_135_ssam2_filter10_fill50_propinf/scene_00005_00/aggregation_output',
+        default='./outputs/experiments/v6_135_ssam2_filter10_fill50_propinf/scene_00005_00/aggregation_output',
         help='Aggregation 输出目录'
     )
     parser.add_argument(

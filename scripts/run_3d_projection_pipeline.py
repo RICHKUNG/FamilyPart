@@ -8,7 +8,7 @@
 Usage:
     python scripts/run_3d_projection_pipeline.py \
         --exp-dir outputs/experiments/my_exp/scene_00005_00 \
-        --scene-path /media/public_dataset2/multiscan/scene_00005_00 \
+        --scene-path data/multiscan/scene_00005_00 \
         --output-dir /tmp/3d_proposals \
         --levels 2 4 6
 

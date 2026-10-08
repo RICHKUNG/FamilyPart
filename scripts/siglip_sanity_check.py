@@ -564,9 +564,9 @@ def main():
     parser = argparse.ArgumentParser(description='SigLIP Feature Sanity Check')
     parser.add_argument('--scene', required=True,
                         help='Scene name (e.g., scene_00005_00)')
-    parser.add_argument('--gt-root', default='/media/Pluto/richkung/My3DIS/data/search3d_gt/multiscan_data_search3d',
+    parser.add_argument('--gt-root', default='./data/search3d_gt/multiscan_data_search3d',
                         help='Root directory for Search3D GT data')
-    parser.add_argument('--scene-root', default='/media/public_dataset2/multiscan',
+    parser.add_argument('--scene-root', default='data/multiscan',
                         help='Root directory for MultiScan scenes (for RGB frames)')
     parser.add_argument('--model-name', default='google/siglip-so400m-patch14-384',
                         help='SigLIP model name')

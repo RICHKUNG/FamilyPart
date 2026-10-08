@@ -6,7 +6,7 @@
 set -e  # 遇到錯誤立即停止
 
 # ===== 配置 =====
-EXPERIMENTS_ROOT="/media/Pluto/richkung/My3DIS/outputs/experiments"
+EXPERIMENTS_ROOT="./outputs/experiments"
 CONTAINMENT_THRESHOLD=0.95
 MASK_SCALE_RATIO=1.0
 LOG_DIR="logs/recovery_$(date +%Y%m%d_%H%M%S)"

@@ -56,9 +56,9 @@ experiment:
 
   # Experiment root directory containing scene subdirectories
   # 指向已驗證可用的上游成果目錄，避免覆寫仍在試驗中的路徑
-  exp_root: /media/Pluto/richkung/My3DIS/outputs/experiments/SUCCESS/v7_135_ssam4_filter100_fill100_prop10_max3k_m_2
+  exp_root: ./outputs/experiments/SUCCESS/v7_135_ssam4_filter100_fill100_prop10_max3k_m_2
   # Dataset root for MultiScan scenes
-  dataset_root: /media/public_dataset2/multiscan
+  dataset_root: data/multiscan
 
   # Scene selection: all, list, or pattern
   scenes: all  # all | list | pattern
@@ -219,18 +219,18 @@ evaluation:
   enabled: true
 
   gt_paths:
-    obj_part: /media/Pluto/richkung/My3DIS/data/search3d_gt/multiscan_data_search3d/multiscan_annotations_search3d/ov_part_annotations
+    obj_part: ./data/search3d_gt/multiscan_data_search3d/multiscan_annotations_search3d/ov_part_annotations
 
-  gt_ply_path: /media/Pluto/richkung/My3DIS/data/search3d_gt/multiscan_data_search3d/multiscan_test_plys_only
+  gt_ply_path: ./data/search3d_gt/multiscan_data_search3d/multiscan_test_plys_only
 
   eval_modes: ['obj_part']
 
   eval_scripts:
     obj_part: eval/search3d/eval_semantic_instance_parts_OV.py
 
-  query_file: /media/Pluto/richkung/My3DIS/eval/search3d/eval_semantic_instance_parts_OV.py
+  query_file: ./eval/search3d/eval_semantic_instance_parts_OV.py
 
-  dataset_root: /media/public_dataset2/multiscan
+  dataset_root: data/multiscan
 
   scenes: null
   num_workers: 4

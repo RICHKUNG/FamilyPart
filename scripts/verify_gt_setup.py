@@ -206,7 +206,7 @@ def main():
         gt_path = gt_root / "multiscan_data_search3d" / "multiscan_annotations_search3d" / "ov_part_annotations"
         print(f"\n  python scripts/quick_eval_experiment.py \\")
         print(f"    --exp-dir outputs/experiments/YOUR_EXP/scene_XXXXX_XX \\")
-        print(f"    --dataset-root /media/public_dataset2/multiscan \\")
+        print(f"    --dataset-root data/multiscan \\")
         print(f"    --gt-path {gt_path} \\")
         print(f"    --output-dir eval_results")
     else:

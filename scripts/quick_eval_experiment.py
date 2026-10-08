@@ -10,8 +10,8 @@ This script performs the complete pipeline:
 
 Usage:
     python scripts/quick_eval_experiment.py \
-        --exp-dir /media/Pluto/richkung/My3DIS/outputs/experiments/test_1105_ssam4_filter300_fill500_fix \
-        --dataset-root /media/public_dataset2/multiscan \
+        --exp-dir ./outputs/experiments/test_1105_ssam4_filter300_fill500_fix \
+        --dataset-root data/multiscan \
         --gt-path /path/to/multiscan_annotations_search3d/ov_part_annotations \
         --output-dir /tmp/eval_results \
         --siglip-model google/siglip-so400m-patch14-384 \

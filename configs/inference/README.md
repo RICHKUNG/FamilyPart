@@ -17,10 +17,10 @@ Edit the two required paths in `my_experiment.yaml`:
 ```yaml
 experiment:
   # Path to your My3DIS experiment directory
-  exp_dir: /media/Pluto/richkung/My3DIS/outputs/experiments/test_1108_ssam4_filter500_fill500_propinf
+  exp_dir: ./outputs/experiments/test_1108_ssam4_filter500_fill500_propinf
 
   # Path to the corresponding MultiScan scene
-  scene_path: /media/public_dataset2/multiscan/scene_00005_00
+  scene_path: data/multiscan/scene_00005_00
 ```
 
 ### 2. Run the Pipeline
@@ -368,7 +368,7 @@ done
 
 ## See Also
 
-- **Full documentation**: `/media/Pluto/richkung/My3DIS/CLAUDE.md`
-- **Aggregation guide**: `/media/Pluto/richkung/My3DIS/scripts/AGGREGATION_INTEGRATION_SUMMARY.md`
-- **Inference strategies**: `/media/Pluto/richkung/My3DIS/src/my3dis/inference/`
-- **Example scripts**: `/media/Pluto/richkung/My3DIS/scripts/quick_eval_experiment.py`
+- **Full documentation**: `./CLAUDE.md`
+- **Aggregation guide**: `./scripts/AGGREGATION_INTEGRATION_SUMMARY.md`
+- **Inference strategies**: `./src/my3dis/inference/`
+- **Example scripts**: `./scripts/quick_eval_experiment.py`
