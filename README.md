@@ -1,5 +1,22 @@
 # FamilyPart: Training-free Open-vocabulary 3D Hierarchical Part Instance Segmentation via a Multi-level Family Tree
 
+**Hsiang-Yu (Rich) Kung** · Advisor: Prof. Min Sun · Vision Science Lab, National Tsing Hua University · 2025
+
+[**Report (PDF)**](report_B611.pdf) · [**Method**](#method-overview) · [**Results**](#experimental-results) · [**Failure Analysis**](#key-failure-modes)
+
+![FamilyPart pipeline](assets/fig1_pipeline.jpg)
+
+## TL;DR
+
+- **Goal:** find object *parts* in 3D scenes from free-text queries (e.g. "the handle of the drawer") without training any model.
+- **Idea:** segment each RGB-D frame at three granularities with Semantic-SAM, link the masks into a parent → child → grandchild "family tree", track them across frames with SAM2, then lift them to 3D and match against text with SigLIP / CLIP.
+- **Result:** the pipeline runs end-to-end on MultiScan, but reaches 1.0 mAP vs. 7.9 for the Search3D baseline.
+- **Why it falls short:** IoU-only deduplication during SAM2 tracking lets masks of different granularities suppress each other, which breaks the family tree. See [Key Failure Modes](#key-failure-modes) for the diagnosis and proposed fixes.
+
+---
+
+## Overview
+
 FamilyPart is a **training-free** research system for open-vocabulary 3D part-level instance segmentation. It constructs a family-like hierarchical structure by progressively segmenting images at multiple levels of granularity and aggregates 2D masklets into 3D proposals with cross-frame consistency enforced by class-agnostic mask supervision between deep learning models.
 
 **Important Note**: This is an experimental research system. While it demonstrates the potential of training-free approaches using only posed RGB-D image sequences and 3D point clouds, the current mean average precision is not fully satisfactory compared to existing methods. We identify key failure modes and propose several directions for improvement.
@@ -37,10 +54,16 @@ Traditional 3D instance segmentation approaches operate at a single granularity 
 6. Apply same procedure for L6 instances
 7. Construct entire family tree and assign unique mask IDs via lookup table
 
+![A family of instances in a single frame](assets/fig2_family_example.jpg)
+*A family of instances in one frame. Left to right: original frame, one L2 instance, its seven L4 children, and five L6 grandchildren.*
+
 **Gap Filling**:
 - Extract connected pixel regions not covered by any highest-level mask
 - Record as independent mask if area exceeds threshold
 - Only applied at highest level to avoid missing objects
+
+![Gap filling before and after](assets/fig3_gap_filling.jpg)
+*Before and after gap filling. The rightmost image has gap filling applied.*
 
 ### Stage 2: Provenance-aware SAM2 Tracking and Deduplication
 
@@ -49,6 +72,12 @@ Traditional 3D instance segmentation approaches operate at a single granularity 
 - For each Semantic-SAM prompt frame, construct subsequence of length 2F+1 (F=30)
 - Run SAM2 propagation within each overlapping window
 - SAM2 maintains internal memory across windows
+
+![Window-based tracking](assets/fig5_window_tracking.jpg)
+*Window-based tracking at a single level. Each Semantic-SAM prompt frame is deduplicated against existing tracks, then propagated F frames in both directions.*
+
+![Semantic-SAM vs SAM2 tracking](assets/fig4_ssam_vs_sam2.jpg)
+*One frame: Semantic-SAM segments (middle) and the result after SAM2 tracking (right) at a single level.*
 
 **Deduplication and Virtual Children**:
 - Use Semantic-SAM masks as prompts for SAM2 video propagation
@@ -162,6 +191,9 @@ Three retrieval strategies are designed:
 - Masks at different scales suppress each other using IoU-only comparison
 - Intended hierarchical structure is effectively destroyed
 - Part masks occasionally larger than corresponding object masks
+
+![Granularity drift after SAM2 tracking](assets/fig6_granularity_drift.jpg)
+*Granularity drift after SAM2 tracking (see the chair): the tracked mask no longer matches the granularity of the Semantic-SAM prompt.*
 
 **Impact**:
 - Hierarchical strategy fails almost completely
@@ -390,10 +422,10 @@ python -m my3dis.run_workflow --config config.yaml
 ## Acknowledgments
 
 FamilyPart builds upon:
-- **Semantic-SAM** [9] for multi-level candidate generation
-- **SAM2** [10] for temporal mask tracking
-- **SigLIP** [11] and **LAION-CLIP** [12] for open-vocabulary feature extraction
-- **MultiScan** [7] dataset and **Search3D** [1] benchmark
+- **Semantic-SAM** [5] for multi-level candidate generation
+- **SAM2** [6] for temporal mask tracking
+- **SigLIP** [7] and **LAION-CLIP** [8] for open-vocabulary feature extraction
+- **MultiScan** [3] dataset and **Search3D** [1] benchmark
 
 **Mentors at Vision Science Lab, NTHU**:
 - Yen Hong-Xuan, Ou Yeh, Chen Chia-Min and Wang Yan-Qing 
@@ -406,14 +438,14 @@ FamilyPart builds upon:
 
 [2] A. Takmaz et al., "OpenMask3D: Open-Vocabulary 3D Instance Segmentation," NeurIPS, vol. 36, 2023.
 
-[7] Y. Mao et al., "MultiScan: Scalable RGBD Scanning for 3D Environments with Articulated Objects," NeurIPS, vol. 35, 2022.
+[3] Y. Mao et al., "MultiScan: Scalable RGBD Scanning for 3D Environments with Articulated Objects," NeurIPS, vol. 35, 2022.
 
-[8] H. Yin et al., "Semantic Consistent Language Gaussian Splatting for Point-Level Open-vocabulary Querying," arXiv:2503.21767, 2025.
+[4] H. Yin et al., "Semantic Consistent Language Gaussian Splatting for Point-Level Open-vocabulary Querying," arXiv:2503.21767, 2025.
 
-[9] F. Li et al., "Semantic-SAM: Segment and Recognize Anything at Any Granularity," ECCV, pp. 467-484, 2024.
+[5] F. Li et al., "Semantic-SAM: Segment and Recognize Anything at Any Granularity," ECCV, pp. 467-484, 2024.
 
-[10] N. Ravi et al., "SAM 2: Segment Anything in Images and Videos," arXiv:2408.00714, 2024.
+[6] N. Ravi et al., "SAM 2: Segment Anything in Images and Videos," arXiv:2408.00714, 2024.
 
-[11] X. Zhai et al., "Sigmoid Loss for Language Image Pre-Training," ICCV, pp. 11975-11986, 2023.
+[7] X. Zhai et al., "Sigmoid Loss for Language Image Pre-Training," ICCV, pp. 11975-11986, 2023.
 
-[12] LAION-AI, "LAION-CLIP: OpenCLIP Models Trained on the LAION-2B Dataset," Hugging Face / OpenCLIP, 2023-2024.
+[8] LAION-AI, "LAION-CLIP: OpenCLIP Models Trained on the LAION-2B Dataset," Hugging Face / OpenCLIP, 2023-2024.
