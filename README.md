@@ -54,7 +54,7 @@ Traditional 3D instance segmentation approaches operate at a single granularity 
 6. Apply same procedure for L6 instances
 7. Construct entire family tree and assign unique mask IDs via lookup table
 
-![A family of instances in a single frame](assets/fig2_family_example.jpg)
+![A family of instances in a single frame](assets/fig2_family_example.png)
 *A family of instances in one frame. Left to right: original frame, one L2 instance, its seven L4 children, and five L6 grandchildren.*
 
 **Gap Filling**:
@@ -430,3 +430,4 @@ FamilyPart builds upon:
 [7] X. Zhai et al., "Sigmoid Loss for Language Image Pre-Training," ICCV, pp. 11975-11986, 2023.
 
 [8] LAION-AI, "LAION-CLIP: OpenCLIP Models Trained on the LAION-2B Dataset," Hugging Face / OpenCLIP, 2023-2024.
+
