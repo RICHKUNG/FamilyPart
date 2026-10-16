@@ -1,25 +1,17 @@
-# FamilyPart: Training-free Open-vocabulary 3D Hierarchical Part Instance Segmentation via a Multi-level Family Tree
+# FamilyPart: Training-Free Open-Vocabulary 3D Part Segmentation
 
 **Hsiang-Yu (Rich) Kung** · Advisor: Prof. Min Sun · Vision Science Lab, National Tsing Hua University · 2025
 
 [**Report (PDF)**](report_B611.pdf) · [**Method**](#method-overview) · [**Results**](#experimental-results) · [**Failure Analysis**](#key-failure-modes)
 
-![FamilyPart pipeline](assets/fig1_pipeline.jpg)
-
 ## TL;DR
 
 - **Goal:** find object *parts* in 3D scenes from free-text queries (e.g. "the handle of the drawer") without training any model.
-- **Idea:** segment each RGB-D frame at three granularities with Semantic-SAM, link the masks into a parent → child → grandchild "family tree", track them across frames with SAM2, then lift them to 3D and match against text with SigLIP / CLIP.
-- **Result:** the report documents an end-to-end MultiScan pipeline with low part-segmentation AP relative to the cited Search3D baseline. Its summary and comparison table contain inconsistent figures; the reported values and their limits are documented in [Experimental Results](#experimental-results).
-- **Why it falls short:** IoU-only deduplication during SAM2 tracking lets masks of different granularities suppress each other, which breaks the family tree. See [Key Failure Modes](#key-failure-modes) for the diagnosis and proposed fixes.
+- **Method:** build parent → child → grandchild masks with Semantic-SAM, track them with SAM2, then lift them to 3D and retrieve parts with SigLIP / CLIP.
+- **Implementation:** an RGB-D-to-3D pipeline covering multilevel mask generation, provenance tracking, proposal aggregation and text-query retrieval.
+- **Finding:** temporal granularity drift can break object–part relationships, and the reported AP remains below the cited Search3D reference. See [Results](#experimental-results) and [Failure Analysis](#key-failure-modes).
 
----
-
-## Overview
-
-FamilyPart is a **training-free** research system for open-vocabulary 3D part-level instance segmentation. It constructs a family-like hierarchical structure by progressively segmenting images at multiple levels of granularity and aggregates 2D masklets into 3D proposals with cross-frame consistency enforced by class-agnostic mask supervision between deep learning models.
-
-**Important Note**: This is an experimental research system. While it demonstrates the potential of training-free approaches using only posed RGB-D image sequences and 3D point clouds, the current mean average precision is not fully satisfactory compared to existing methods. We identify key failure modes and propose several directions for improvement.
+![FamilyPart pipeline](assets/fig1_pipeline.jpg)
 
 ---
 
@@ -32,12 +24,6 @@ Traditional 3D instance segmentation approaches operate at a single granularity 
 2. Track which fine-level masks belong to which coarse-level objects
 3. Handle deduplication when the same object is proposed at different levels
 4. Preserve complete provenance from 2D masks → tracked objects → 3D proposals
-
-**Our Approach**: Develop a **training-free pipeline** that:
-- Constructs hierarchical, family-like structures based on different granularities
-- Resolves ambiguity inherent in coarse-to-fine segmentation backbone models
-- Does NOT require pre-segmented superpoint structures or 3D masks
-- Depends solely on posed RGB-D image sequences and 3D point cloud structure
 
 ---
 
@@ -376,9 +362,6 @@ Rather than post-hoc spatial containment, FamilyPart tracks provenance from mask
 - Explicit parent-child relationships across levels
 - Virtual children intended to retain lineage for deduplicated candidates
 - O(1) parent lookup through unified mapping
-
-### Honest Reporting
-We openly acknowledge that current results are not fully satisfactory. The deduplication issues significantly impact performance. This transparency helps future research identify and address these limitations.
 
 ---
 
