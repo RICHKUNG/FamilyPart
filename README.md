@@ -10,7 +10,7 @@
 
 - **Goal:** find object *parts* in 3D scenes from free-text queries (e.g. "the handle of the drawer") without training any model.
 - **Idea:** segment each RGB-D frame at three granularities with Semantic-SAM, link the masks into a parent → child → grandchild "family tree", track them across frames with SAM2, then lift them to 3D and match against text with SigLIP / CLIP.
-- **Result:** the pipeline runs end-to-end on MultiScan, but reaches 1.0 mAP vs. 7.9 for the Search3D baseline.
+- **Result:** the report documents an end-to-end MultiScan pipeline with low part-segmentation AP relative to the cited Search3D baseline. Its summary and comparison table contain inconsistent figures; the reported values and their limits are documented in [Experimental Results](#experimental-results).
 - **Why it falls short:** IoU-only deduplication during SAM2 tracking lets masks of different granularities suppress each other, which breaks the family tree. See [Key Failure Modes](#key-failure-modes) for the diagnosis and proposed fixes.
 
 ---
@@ -87,7 +87,7 @@ Traditional 3D instance segmentation approaches operate at a single granularity 
   - System uses mask ID to determine which existing SAM2 object to merge into
   - Updates lookup table with virtual child relationships
   - O(1) time traceability to parent object
-  - Ensures semantic relationships not lost due to deduplication
+  - Records provenance for rejected candidates; this does not prevent the tracking granularity failures discussed below
 
 ### Stage 3: 3D Proposal Aggregation and Feature Extraction
 
@@ -104,8 +104,9 @@ Traditional 3D instance segmentation approaches operate at a single granularity 
 - Multi-scale cropping (3 scales) by expanding bounding box outward
 - L₂ normalization followed by averaging
 - Temporal Gaussian weighting + bounding-box area weighting:
-  - `wₖ = exp(-(k-c/σ)²) × √Aₖ`
+  - `wₖ = exp(-((k-c)/σ)²) × √Aₖ`
   - `c = (K-1)/2`, `σ = K/4`
+  - The report normalizes these weights with `αₖ = exp(wₖ) / Σⱼ exp(wⱼ)`, uses them to pool the features, and applies final L₂ normalization (Section 3.3, printed p. 9)
 - Template-based text encoding: "a {part} of {object} in a room"
 
 ### Stage 4: Open-Vocabulary Query Inference
@@ -131,7 +132,7 @@ Three retrieval strategies are designed:
    - Match lower levels (L4/L6) against part query
    - Compute geometric score based on IoU and size ratio
    - Combine with retrieval scores via weighted average
-   - **Best performance** in experiments
+   - Highest mean mAP, AP50 and AP25 among the three strategies in the report's seven-experiment comparison (Table 3)
 
 ---
 
@@ -142,14 +143,20 @@ Three retrieval strategies are designed:
   - 155 object + 15 part categories
   - 47 (object, part) pairs
   - 41 scenes (4 without ground-truth annotations)
-- **Metric**: Mean Average Precision (mAP) under Search3D protocol
+- **Metric**: Mean Average Precision (mAP) under Search3D protocol. All AP values below are percentages, as labeled in the report (e.g. 1.0 means 1.0%).
 
-### Performance Summary
+### Reported Summary
 
-| Configuration | mAP | AP50 | AP25 |
-|--------------|-----|------|------|
-| **FamilyPart (Best: L1/3/5, SigLIP, Independent)** | **1.0** | **3.4** | **14.7** |
-| Search3D [1] (Baseline) | 7.9 | 14.5 | 31.5 |
+The following values are transcribed from Section 4.2 of the [report](report_B611.pdf) (printed p. 12 / PDF p. 16).
+
+| Configuration / source | mAP (%) | AP50 (%) | AP25 (%) |
+|------------------------|---------|----------|----------|
+| FamilyPart: L1/3/5, min. area=100, SigLIP, Independent (Section 4.2 prose) | 1.0 | 3.4 | 14.7 |
+| Search3D [1] (baseline cited in the report) | 7.9 | 14.5 | 31.5 |
+
+**Unresolved discrepancy in the report:** Table 2 lists **1.1 / 3.1 / 11.8** for SigLIP with the same stated L1/3/5, min. area=100 and Independent labels. It also lists **1.2 / 3.7 / 11.4** for LAION-CLIP under those level, area and strategy labels. The report does not explain why its prose summary differs from Table 2. These values are retained as reported; the 1.0 result is not treated here as a verified best-mAP configuration, and the configuration labels alone do not establish that the underlying runs are otherwise comparable. The Search3D figures are a cited reference, not a reproduction in this repository.
+
+The three comparisons below reproduce Tables 3, 1 and 2 respectively. The seven-experiment averages are distinct from the individual configurations above.
 
 ### Strategy Comparison (Averaged over 7 Experiments)
 
@@ -176,9 +183,9 @@ Three retrieval strategies are designed:
 **Key Findings**:
 - Fewer than half of 41 scenes achieve non-zero mAP
 - Hierarchical strategy performs particularly poorly (only 1 scene with non-zero mAP)
-- Independent strategy achieves best AP
-- SigLIP generally outperforms LAION-CLIP
-- Performance still notably behind Search3D baseline
+- Independent has the highest mean mAP, AP50 and AP25 in the report's seven-experiment strategy comparison; this is not a claim of general superiority across datasets or settings.
+- In Table 2, SigLIP scores higher on all three metrics for Hierarchical and Exhaustive, while LAION-CLIP scores higher on mAP and AP50 for Independent; SigLIP has higher Independent AP25.
+- All listed FamilyPart results remain below the Search3D reference cited in the report.
 
 ---
 
@@ -244,63 +251,37 @@ Based on current findings, we identify promising directions for improvement:
 - **Semantic-SAM checkpoint**: `swinl_only_sam_many2many`
 - **SAM2 checkpoint**: `sam2.1_hiera_large`
 
-### Quick Start
+### Running the Archived Pipeline
 
-**Stage 1-2: Segmentation + Tracking (Single Scene)**:
-```bash
-./run_experiment.sh \
-  --levels 2,4,6 \
-  --frames 1200:1600:20 \
-  --ssam-freq 2 \
-  --sam2-max-propagate 30
-```
+This repository preserves research code and experiment configurations. The commands below identify the current entry points; they have not been validated end-to-end in a fresh environment and are not a recipe for reproducing the report's figures. The configurations contain machine-specific paths and GPU selections that must be adapted before use.
 
-**Stage 1-2: Multi-Scene Batch Processing**:
+**Stage 1-2: Segmentation + Tracking**
+
+Start from [configs/multiscan/base.yaml](configs/multiscan/base.yaml). Set `experiment.dataset_root`, `experiment.output_root`, the scene selection (`scenes` or the configured scene range), `stages.gpu`, and the checkpoint/config paths under `stages.ssam` and `stages.tracker` for your installation. Check the enabled filtering, gap-filling and tracking settings as well; the checked-in configuration is one experiment, not a canonical reproduction setting.
+
 ```bash
 PYTHONPATH=src python -m my3dis.run_workflow \
   --config configs/multiscan/base.yaml
 ```
 
-**Stage 3-4: Aggregation + Inference (After Tracking)**:
+The legacy single-scene wrapper `run_experiment.sh` still looks for `generate_candidates.py` and `track_from_candidates.py` beside the wrapper, while those files now live under `src/my3dis/`. It requires repair before use, so it is not presented as a working quick-start command.
+
+**Stage 3-4: Aggregation + Inference (After Tracking)**
+
+The checked-in runner configuration is [configs/inference/experiment_pipeline.yaml](configs/inference/experiment_pipeline.yaml). It defaults to multi-scene mode, where `--exp-root` selects the directory containing per-scene tracking outputs; `--exp-dir` is for single-scene mode. Review the model, levels, pooling and strategy settings, along with device settings in the inference subsections.
+
 ```bash
 python scripts/run_full_pipeline.py \
-  --config configs/inference/full_pipeline.yaml \
-  --exp-dir outputs/experiments/<your_experiment_name>
+  --config configs/inference/experiment_pipeline.yaml \
+  --exp-root "/path/to/tracking-output-root" \
+  --dataset-root "/path/to/multiscan" \
+  --device cuda:0 \
+  --skip-evaluation
 ```
 
-### Configuration Example
+Replace the placeholder paths with your local data. Evaluation is skipped in this example because it requires separately prepared Search3D annotations and paths. To enable it, configure the `evaluation` section, including annotation/point-cloud paths and the evaluation script, then omit `--skip-evaluation`.
 
-```yaml
-experiment:
-  dataset_root: /path/to/multiscan
-  scenes: [scene_00065_00, scene_00093_01]
-  levels: [1, 3, 5]  # or [2, 4, 6]
-  frames: "1200:1600:20"
-
-stages:
-  ssam:
-    enabled: true
-    ssam_freq: 4  # Sample every 4th frame (T/200 frames)
-    area_threshold: 100  # or 500 depending on memory
-
-  tracker:
-    enabled: true
-    iou_threshold: 0.6
-    downscale_ratio: 0.3
-    propagation_stride: 50  # T/50 frames
-    window_size: 30  # 2F+1 frames
-
-  aggregation:
-    enabled: true
-    iou_threshold: 0.5
-    min_visible_area_fraction: 0.0005
-
-  inference:
-    enabled: true
-    feature_extractor: "siglip"  # or "laion-clip"
-    scoring_strategy: "independent"  # best performance
-    scale_semantic_score: 200  # 300 for laion-clip
-```
+These two entry points use different configuration schemas. Use their linked YAML files as the schema references rather than combining stage settings into one generic configuration.
 
 ---
 
@@ -324,7 +305,7 @@ FamilyPart/
 │   ├── run_full_pipeline.py
 │   └── benchmark_*.py
 │
-├── run_experiment.sh     # Single-scene orchestrator
+├── run_experiment.sh     # Legacy single-scene wrapper (requires path repair)
 └── README.md             # This file
 ```
 
@@ -393,7 +374,7 @@ No training or fine-tuning required for novel environments.
 ### Provenance Tracking
 Rather than post-hoc spatial containment, FamilyPart tracks provenance from mask generation:
 - Explicit parent-child relationships across levels
-- Virtual children for complete lineage preservation
+- Virtual children intended to retain lineage for deduplicated candidates
 - O(1) parent lookup through unified mapping
 
 ### Honest Reporting
