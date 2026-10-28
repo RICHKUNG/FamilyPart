@@ -13,6 +13,16 @@
 
 ![FamilyPart pipeline](assets/fig1_pipeline.jpg)
 
+<p align="center">
+  <img src="assets/fig2_family_example.jpg" alt="One frame's family tree: original frame, one L2 instance, its seven L4 children and five L6 grandchildren" width="100%">
+  <br><sub><b>What it builds:</b> one frame's family tree. Left to right: the frame, one L2 instance, its seven L4 children and five L6 grandchildren.</sub>
+</p>
+
+<p align="center">
+  <img src="assets/fig6_granularity_drift.jpg" alt="Granularity drift: the chair's tracked mask no longer matches the granularity of the Semantic-SAM prompt" width="100%">
+  <br><sub><b>Where it breaks:</b> after SAM2 tracking, the chair's mask drifts away from the granularity of its Semantic-SAM prompt. See <a href="#key-failure-modes">Failure Analysis</a>.</sub>
+</p>
+
 ---
 
 ## Research Motivation
